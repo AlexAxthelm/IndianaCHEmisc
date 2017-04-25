@@ -3,6 +3,17 @@
 language: R
 sudo: false
 cache: packages
+dist: trusty
+addons:
+  sources:
+  - ubuntu-toolchain-r-test
+  apt:
+    packages:
+    - libgpgme11-dev
+    - unixodbc
+    - unixodbc-dev
+    - tdsodbc
+    - libsqliteodbc
 
 after_success:
   - Rscript -e 'covr::codecov()'
