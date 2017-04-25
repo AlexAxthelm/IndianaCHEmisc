@@ -10,4 +10,5 @@ Encoding: UTF-8
 LazyData: true
 Suggests: testthat,
     covr
-Imports: dplyr
+Imports: dplyr,
+    gpg
