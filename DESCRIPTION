@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Alex Axthelm
 Maintainer: Alex Axthelm <AAXthelm@CHE.IN.GOV>
 Description: This package contains functions which are designed to operate on data for the Indiana Commission for Higher Education
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat,
