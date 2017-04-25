@@ -8,3 +8,6 @@ Description: This package contains functions which are designed to operate on da
 License: MIT
 Encoding: UTF-8
 LazyData: true
+Suggests: testthat,
+    covr
+Imports: dplyr
