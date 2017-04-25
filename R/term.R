@@ -50,6 +50,16 @@ split_termkey <- function(termkey){
     is.na(termcode) ~ NA_character_
   )
 
+  # I know it seems like I'm reinventing the wheel here, to get back to the same term codes as we started with, but:
+  # 1: I want a sanity check
+  # 2: I want to be sure that the (old) summer terms are smooshing correctly
+  term_season_number <- dplyr::case_when(
+    term_season == "Fall" ~ 2L,
+    term_season == "Spring" ~ 3L,
+    term_season == "Summer" ~ 5L,
+    is.na(term_season) ~ NA_integer_
+  )
+
   fiscal_year <- ifelse(termcode == 1 & key_year == 2016, NA_integer_, key_year)
   # In 2016 CHE stopped using the Summer AB distinction across fiscal years. The 20161 term is the last of the AB distinctions
   fiscal_year <- ifelse(is.na(termkey), NA_integer_, fiscal_year)
@@ -57,6 +67,7 @@ split_termkey <- function(termkey){
   return_list <- list(
     academic_year = academic_year,
     term_season = term_season,
+    term_season_number = term_season_number,
     termcode = termcode,
     term_name = term_name,
     fiscal_year = fiscal_year
