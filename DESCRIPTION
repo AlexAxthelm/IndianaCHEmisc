@@ -11,5 +11,4 @@ LazyData: true
 Suggests: testthat,
     covr,
     readr
-Imports: dplyr,
-    gpg
+Imports: dplyr
