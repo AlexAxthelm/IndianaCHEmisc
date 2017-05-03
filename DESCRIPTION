@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat,
-    covr
+    covr,
+    readr
 Imports: dplyr,
     gpg
