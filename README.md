@@ -1,9 +1,9 @@
 # IndianaCHEmisc
 
 
-[Travis-CI Build Status](https://travis-ci.org/AlexAxthelm/IndianaCHEmisc.svg?branch=master)](https://travis-ci.org/AlexAxthelm/IndianaCHEmisc)
+[![Travis-CI Build Status](https://travis-ci.org/AlexAxthelm/IndianaCHEmisc.svg?branch=master)](https://travis-ci.org/AlexAxthelm/IndianaCHEmisc)
 
-[Coverage Status](https://img.shields.io/codecov/c/github/AlexAxthelm/IndianaCHEmisc/master.svg)](https://codecov.io/github/AlexAxthelm/IndianaCHEmisc?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/AlexAxthelm/IndianaCHEmisc/master.svg)](https://codecov.io/github/AlexAxthelm/IndianaCHEmisc?branch=master)
 
 The goal of IndianaCHEmisc is to provide useful functions for Indiana CHE Research & Analysis group while working with R.
 

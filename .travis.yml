@@ -16,6 +16,6 @@ addons:
     - unixodbc-dev
     - tdsodbc
     - libsqliteodbc
-t
+ 
 after_success:
   - Rscript -e 'covr::codecov()'
