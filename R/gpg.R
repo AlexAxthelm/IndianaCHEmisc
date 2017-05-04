@@ -7,7 +7,7 @@ gpg_rds_encrypt <- function(x, recipient, path = "data", overwrite = TRUE){
 
   # Just in case the path doesn't exist
   dir.create(path = path, recursive = TRUE, showWarnings = FALSE)
-  
+
   if (file.exists(file_encrypt) & overwrite) {file.remove(file_encrypt)} #Delete Previous Version of the file
 
   if (requireNamespace("readr", quietly = TRUE)) {
@@ -19,7 +19,7 @@ gpg_rds_encrypt <- function(x, recipient, path = "data", overwrite = TRUE){
   }
 
   # Now we will call gpg to encrypt the file
-  system(paste("gpg --recipient", recipient, "--output", file_encrypt, "--encrypt", file_temp))
+  system(command = paste("gpg", paste(" --recipient", recipient, collapse = ""), "--output", file_encrypt, "--encrypt", file_temp))
   file.remove(file_temp)
 }
 
