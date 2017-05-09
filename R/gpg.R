@@ -1,7 +1,12 @@
 #` Create GPG encrypted RDS of R objects.
 #' This function does not accept vectorized inputs. It will only deal with whole objects
-gpg_rds_encrypt <- function(x, recipient, path = "data", overwrite = TRUE){
-  x_name <- deparse(substitute(x))
+gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, obj_name = NULL){
+  if (is.null(obj_name)){
+    x_name <- deparse(substitute(x))
+  } else {
+    x_name <- obj_name
+  }
+
   file_temp <- tempfile(fileext = ".RDS")
   file_encrypt <- file.path(path, paste0(x_name, ".RDS.gpg"))
 
