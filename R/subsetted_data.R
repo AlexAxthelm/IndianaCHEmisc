@@ -34,15 +34,29 @@ save_gpg_frame_and_tiny <- function(
 
 read_gpg_frame_and_tiny <- function(
   encrypted_file,
-  use_tiny = TRUE
+  use_tiny = TRUE,
+  failsafe = TRUE
 ){
   tiny_filename <- gsub(x = encrypted_file, pattern = ".RDS.gpg", replacement = "_tiny.RDS.gpg")
   big_filename <- gsub(x = encrypted_file, pattern = "_tiny.RDS.gpg", replacement = ".RDS.gpg")
   filename_valid <- identical(big_filename, encrypted_file) | identical(tiny_filename, encrypted_file)
   file_to_read <- if (use_tiny) {tiny_filename} else {big_filename}
 
-  if (!file.exists(big_filename)) warning(big_filename, " does not exist.")
-  if (!file.exists(tiny_filename)) warning(tiny_filename, " does not exist.")
+  if (!file.exists(big_filename)){
+    warning(big_filename, " does not exist.")
+    if(failsafe & !use_tiny){
+      warning("Attempting to use ", tiny_filename, " instead")
+      file_to_read <- tiny_filename
+    }
+  }
+
+  if (!file.exists(tiny_filename)){
+    warning(tiny_filename, " does not exist.")
+    if(failsafe & use_tiny){
+      warning("Attempting to use ", big_filename, " instead")
+      file_to_read <- big_filename
+    }
+  }
 
   stopifnot(
     filename_valid,
