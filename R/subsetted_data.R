@@ -1,4 +1,5 @@
 make_tiny_frame <- function(frame_df, ..., keycolumn = "CurrentCSN", randomvec = NULL, sample_size = .01){
+	library(dplyr) # TODO: allow this to be a require.
   # keycolumn
   # eval(frame_df)
   if (sample_size < 1) {sample_size <- sample_size*length(unique(frame_df[ , keycolumn]))}
@@ -7,8 +8,10 @@ make_tiny_frame <- function(frame_df, ..., keycolumn = "CurrentCSN", randomvec =
   }
   # I can probably improve this with dplyr.
   #TODO: implement a dplyr solution, but make it optional.
-  rows_to_return <- which(frame_df[ , keycolumn] %in% randomvec)
-  return(frame_df[rows_to_return, ])
+
+	#This is broken
+  # rows_to_return <- which(frame_df[ , keycolumn] %in% randomvec)
+  return(filter(frame_df, CurrentCSN %in% randomvec))
 }
 
 save_gpg_frame_and_tiny <- function(

@@ -1,4 +1,8 @@
 validate_termkey <- function(termkey){
+
+  # get rid of any underscores put into the term key by pasting or `unite`ing.
+  termkey <- gsub(pattern = "_", replacement = "", x = termkey)
+
   key_year <- suppressWarnings(as.integer(substr(termkey, 1, 4)))
   key_term <- suppressWarnings(as.integer(substr(termkey, 5, 5)))
 
