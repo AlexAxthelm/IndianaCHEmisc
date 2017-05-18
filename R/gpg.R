@@ -26,6 +26,7 @@ gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, 
   # Now we will call gpg to encrypt the file
   system(command = paste("gpg", paste(" --recipient", recipient, collapse = ""), "--output", file_encrypt, "--encrypt", file_temp))
   file.remove(file_temp)
+  return(file_encrypt)
 }
 
 gpg_rds_decrypt <- function(encrypted_file){
