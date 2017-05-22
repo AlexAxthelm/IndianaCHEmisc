@@ -1,3 +1,25 @@
+#'  Determine if a termkey is valid
+#'
+#'  For use with Indiana CHE \code{TermKey}s.
+#'  Takes into account the change in reporting method in summer 2016.
+#'
+#' @param termkey TermKey for record pulled from SQL database
+#'
+#' @return either the valid termkey, or \code{NA_integer} is not a valid termkey
+#' @export
+#'
+#' @examples
+#' validate_termkey(20081) # Valid, summer 2, 2007
+#' validate_termkey(20082) # Valid, Fall 2007
+#' validate_termkey(20083) # Valid, Spring 2008
+#' validate_termkey(20084) # Valid, Summer 1, 2008
+#' validate_termkey(20085) # Not Valid
+#'
+#' validate_termkey(20181) # Not Valid
+#' validate_termkey(20182) # Valid, Fall 2017
+#' validate_termkey(20183) # Valid, Spring 2018
+#' validate_termkey(20184) # Not Valid
+#' validate_termkey(20185) # Valid, Trailing Summer 2018
 validate_termkey <- function(termkey){
 
   # get rid of any underscores put into the term key by pasting or `unite`ing.
@@ -28,6 +50,22 @@ validate_termkey <- function(termkey){
   return(ret_termkey)
 }
 
+#' Split Termkey into important information
+#'
+#' @param termkey
+#'
+#' @return List:
+#' academic_year,
+#' term_season,
+#' term_season_number,
+#' termcode,
+#' term_name,
+#' fiscal_year
+#' @export
+#'
+#' @examples
+#' split_termkey(20083)
+#' split_termkey("20291")
 split_termkey <- function(termkey){
   termkey <- validate_termkey(termkey = termkey)
   key_year <- as.integer(substr(termkey, 1, 4))
@@ -82,7 +120,26 @@ split_termkey <- function(termkey){
   return(return_list)
 }
 
-count_seasons <- function(termkey1, termkey2, neg = TRUE){
+#' Count the number of seasons between two termkeys
+#'
+#' Fall, spring, summer.
+#' If ignore_summers = TRUE, but one of the termkeys is a summer, it will make the shorter count
+#'
+#' @param termkey1 A Termkey (will be validated). By convention, should be earlier
+#' @param termkey2 A Termkey (will be validated). By convention, should be later
+#' @param neg Boolean: return a negative number of seasons if termkey 1 is later than termkey2, if FALSE, provide an absolute difference
+#' @param ignore_summers Boolean: if TRUE, count fall and spring semesters only
+#'
+#' @return
+#' @export
+#'
+#' @examples
+count_seasons <- function(
+  termkey1,
+  termkey2,
+  neg = TRUE,
+  ignore_summers = FALSE
+  ){
   # neg = TRUE indicates that the function  will return a negative number if
   # termkey1 is later than termkey2 (negative time)
   # neg = FALSE will simply give the absolute difference

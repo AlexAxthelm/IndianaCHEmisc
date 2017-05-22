@@ -10,6 +10,11 @@
 #' @export
 #'
 #' @examples
+#' ptm <- proc.time()
+#' Sys.sleep(4)
+#' checkpoint <- check_elapsed_time(start_time = ptm)
+#' Sys.sleep(8)
+#' checkpoint <- check_elapsed_time(last_time = checkpoint, start_time = ptm)
 check_elapsed_time <- function(last_time, start_time){
   time_now <- proc.time()
   show_start <- FALSE
