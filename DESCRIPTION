@@ -1,7 +1,7 @@
 Package: IndianaCHEmisc
 Type: Package
 Title: Miscellaneous Functions Useful for Indiana Commission for Higher Education
-Version: 0.1.0
+Version: 0.2.0
 Author: Alex Axthelm
 Maintainer: Alex Axthelm <AAXthelm@CHE.IN.GOV>
 Description: This package contains functions which are designed to operate on data for the Indiana Commission for Higher Education
