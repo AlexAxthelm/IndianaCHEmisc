@@ -418,9 +418,9 @@ test_that("Going Backwards, Spring, neg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20183, 20152, ignore_summers = FALSE, neg = TRUE), -11)
-  expect_equal(count_seasons(20183, 20153, ignore_summers = FALSE, neg = TRUE), -10)
-  expect_equal(count_seasons(20183, 20154, ignore_summers = FALSE, neg = TRUE), -9)
+  expect_equal(count_seasons(20183, 20152, ignore_summers = FALSE, neg = TRUE), -10)
+  expect_equal(count_seasons(20183, 20153, ignore_summers = FALSE, neg = TRUE), -9)
+  expect_equal(count_seasons(20183, 20154, ignore_summers = FALSE, neg = TRUE), -8)
   expect_equal(count_seasons(20183, 20161, ignore_summers = FALSE, neg = TRUE), -8)
   expect_equal(count_seasons(20183, 20162, ignore_summers = FALSE, neg = TRUE), -7)
   expect_equal(count_seasons(20183, 20163, ignore_summers = FALSE, neg = TRUE), -6)
@@ -454,9 +454,9 @@ test_that("Going Backwards, Fall, neg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20182, 20152, ignore_summers = FALSE, neg = TRUE), -10)
-  expect_equal(count_seasons(20182, 20153, ignore_summers = FALSE, neg = TRUE), -9)
-  expect_equal(count_seasons(20182, 20154, ignore_summers = FALSE, neg = TRUE), -8)
+  expect_equal(count_seasons(20182, 20152, ignore_summers = FALSE, neg = TRUE), -9)
+  expect_equal(count_seasons(20182, 20153, ignore_summers = FALSE, neg = TRUE), -8)
+  expect_equal(count_seasons(20182, 20154, ignore_summers = FALSE, neg = TRUE), -7)
   expect_equal(count_seasons(20182, 20161, ignore_summers = FALSE, neg = TRUE), -7)
   expect_equal(count_seasons(20182, 20162, ignore_summers = FALSE, neg = TRUE), -6)
   expect_equal(count_seasons(20182, 20163, ignore_summers = FALSE, neg = TRUE), -5)
@@ -488,9 +488,9 @@ test_that("Going Backwards, Summer, neg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20175, 20152, ignore_summers = FALSE, neg = TRUE), -9)
-  expect_equal(count_seasons(20175, 20153, ignore_summers = FALSE, neg = TRUE), -8)
-  expect_equal(count_seasons(20175, 20154, ignore_summers = FALSE, neg = TRUE), -7)
+  expect_equal(count_seasons(20175, 20152, ignore_summers = FALSE, neg = TRUE), -8)
+  expect_equal(count_seasons(20175, 20153, ignore_summers = FALSE, neg = TRUE), -7)
+  expect_equal(count_seasons(20175, 20154, ignore_summers = FALSE, neg = TRUE), -6)
   expect_equal(count_seasons(20175, 20161, ignore_summers = FALSE, neg = TRUE), -6)
   expect_equal(count_seasons(20175, 20162, ignore_summers = FALSE, neg = TRUE), -5)
   expect_equal(count_seasons(20175, 20163, ignore_summers = FALSE, neg = TRUE), -4)
@@ -521,9 +521,9 @@ test_that("Going Backwards, Spring, noneg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20183, 20152, ignore_summers = FALSE, neg = FALSE), 11)
-  expect_equal(count_seasons(20183, 20153, ignore_summers = FALSE, neg = FALSE), 10)
-  expect_equal(count_seasons(20183, 20154, ignore_summers = FALSE, neg = FALSE), 9)
+  expect_equal(count_seasons(20183, 20152, ignore_summers = FALSE, neg = FALSE), 10)
+  expect_equal(count_seasons(20183, 20153, ignore_summers = FALSE, neg = FALSE), 9)
+  expect_equal(count_seasons(20183, 20154, ignore_summers = FALSE, neg = FALSE), 8)
   expect_equal(count_seasons(20183, 20161, ignore_summers = FALSE, neg = FALSE), 8)
   expect_equal(count_seasons(20183, 20162, ignore_summers = FALSE, neg = FALSE), 7)
   expect_equal(count_seasons(20183, 20163, ignore_summers = FALSE, neg = FALSE), 6)
@@ -557,9 +557,9 @@ test_that("Going Backwards, Fall, noneg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20182, 20152, ignore_summers = FALSE, neg = FALSE), 10)
-  expect_equal(count_seasons(20182, 20153, ignore_summers = FALSE, neg = FALSE), 9)
-  expect_equal(count_seasons(20182, 20154, ignore_summers = FALSE, neg = FALSE), 8)
+  expect_equal(count_seasons(20182, 20152, ignore_summers = FALSE, neg = FALSE), 9)
+  expect_equal(count_seasons(20182, 20153, ignore_summers = FALSE, neg = FALSE), 8)
+  expect_equal(count_seasons(20182, 20154, ignore_summers = FALSE, neg = FALSE), 7)
   expect_equal(count_seasons(20182, 20161, ignore_summers = FALSE, neg = FALSE), 7)
   expect_equal(count_seasons(20182, 20162, ignore_summers = FALSE, neg = FALSE), 6)
   expect_equal(count_seasons(20182, 20163, ignore_summers = FALSE, neg = FALSE), 5)
@@ -591,9 +591,9 @@ test_that("Going Backwards, Summer, noneg", {
   # These were calculated by hand, by Alex Axthelm,
   # by counting the seasons in between each term
   # Start in Fall:
-  expect_equal(count_seasons(20175, 20152, ignore_summers = FALSE, neg = FALSE), 9)
-  expect_equal(count_seasons(20175, 20153, ignore_summers = FALSE, neg = FALSE), 8)
-  expect_equal(count_seasons(20175, 20154, ignore_summers = FALSE, neg = FALSE), 7)
+  expect_equal(count_seasons(20175, 20152, ignore_summers = FALSE, neg = FALSE), 8)
+  expect_equal(count_seasons(20175, 20153, ignore_summers = FALSE, neg = FALSE), 7)
+  expect_equal(count_seasons(20175, 20154, ignore_summers = FALSE, neg = FALSE), 6)
   expect_equal(count_seasons(20175, 20161, ignore_summers = FALSE, neg = FALSE), 6)
   expect_equal(count_seasons(20175, 20162, ignore_summers = FALSE, neg = FALSE), 5)
   expect_equal(count_seasons(20175, 20163, ignore_summers = FALSE, neg = FALSE), 4)

@@ -123,7 +123,8 @@ split_termkey <- function(termkey){
 #' Count the number of seasons between two termkeys
 #'
 #' Fall, spring, summer.
-#' If ignore_summers = TRUE, but one of the termkeys is a summer, it will make the shorter count
+#' If ignore_summers = TRUE, but one of the termkeys is a summer, it will make the summer term collapse into the previous spring. 
+#' This gives an accurate count of the number of fall and spring terms in between two termkeys.
 #'
 #' @param termkey1 A Termkey (will be validated). By convention, should be earlier
 #' @param termkey2 A Termkey (will be validated). By convention, should be later
@@ -148,6 +149,28 @@ count_seasons <- function(
   termlist1 <- split_termkey(termkey1)
   termlist2 <- split_termkey(termkey2)
 
+  # Upon wokring things out by hand, it appears that when ignoring summers, if
+  # one of the terms is a summer term, we should collapse it into the previous
+  # spring. This gives an accurate count of the number of fall and spring terms
+  # in between any two terms. If counting backwards, however, we need to
+  # collapse back to the following fall.
+  if (ignore_summers){
+    if (termlist1$term_season == "Summer"){
+      if (termkey1 > termkey2) {
+        termlist1$term_season <- "Fall"
+      } else {
+        termlist1$term_season <- "Spring"
+      }
+    }
+    if (termlist2$term_season == "Summer"){
+      if (termkey1 > termkey2) {
+        termlist2$term_season <- "Fall"
+      } else {
+        termlist2$term_season <- "Spring"
+      }
+    }
+  }
+
   if (termkey1 > termkey2) {
     if (neg) {
       neg_factor <- -1
@@ -157,7 +180,6 @@ count_seasons <- function(
     termlist2 <- foo
   }
 
-  diff_years <- termlist2$academic_year - termlist1$academic_year
   mod_seasons <- dplyr::case_when(
     termlist2$term_season == termlist1$term_season ~ 0,
     termlist2$term_season == "Spring" & termlist1$term_season == "Fall" ~ +1,
@@ -169,6 +191,15 @@ count_seasons <- function(
     termlist2$term_season == "Spring" & termlist1$term_season == "Summer" ~ -1
   )
 
-  num_seasons <- (diff_years * 3) + mod_seasons
+  diff_years <- termlist2$academic_year - termlist1$academic_year
+  if (ignore_summers){
+    # If we are not ignoring summer, there are two seasons per year
+    num_seasons <- (diff_years * 2) + mod_seasons
+  } else {
+    # If we are not ignoring summer, there are three seasons per year
+    num_seasons <- (diff_years * 3) + mod_seasons
+  }
+
+
   return(num_seasons * neg_factor)
 }
