@@ -149,6 +149,15 @@ count_seasons <- function(
   termlist1 <- split_termkey(termkey1)
   termlist2 <- split_termkey(termkey2)
 
+  if (termkey1 > termkey2) {
+    if (neg) {
+      neg_factor <- -1
+    }
+    foo <- termlist1
+    termlist1 <- termlist2
+    termlist2 <- foo
+  }
+
   # Upon wokring things out by hand, it appears that when ignoring summers, if
   # one of the terms is a summer term, we should collapse it into the previous
   # spring. This gives an accurate count of the number of fall and spring terms
@@ -158,6 +167,8 @@ count_seasons <- function(
     if (termlist1$term_season == "Summer"){
       if (termkey1 > termkey2) {
         termlist1$term_season <- "Fall"
+        # Note that it needs to be the following fall
+        termlist1$academic_year <- termlist1$academic_year + 1
       } else {
         termlist1$term_season <- "Spring"
       }
@@ -165,19 +176,12 @@ count_seasons <- function(
     if (termlist2$term_season == "Summer"){
       if (termkey1 > termkey2) {
         termlist2$term_season <- "Fall"
+        # Note that it needs to be the following fall
+        termlist2$academic_year <- termlist2$academic_year + 1
       } else {
         termlist2$term_season <- "Spring"
       }
     }
-  }
-
-  if (termkey1 > termkey2) {
-    if (neg) {
-      neg_factor <- -1
-    }
-    foo <- termlist1
-    termlist1 <- termlist2
-    termlist2 <- foo
   }
 
   mod_seasons <- dplyr::case_when(
