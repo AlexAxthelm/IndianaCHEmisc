@@ -7,7 +7,6 @@ test_that("check_elapsed_time handles missing arguments", {
   Sys.sleep(0.1)
   # No arguments, so no comparisons
   expect_silent(check_elapsed_time())
-  print(current_time)
   # Compares to the "last time" arguement. Note the use of regex
   expect_message(check_elapsed_time(last_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} Seconds since last check")
 

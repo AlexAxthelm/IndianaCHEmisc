@@ -18,3 +18,10 @@ results of \code{\link{proc.time}}
 Creates a set of messages for displaying the time it takes to run a long process
 Rounds to the nearest hundreth of a second, so not suitible for very short processes
 }
+\examples{
+ptm <- proc.time()
+Sys.sleep(4)
+checkpoint <- check_elapsed_time(start_time = ptm)
+Sys.sleep(8)
+checkpoint <- check_elapsed_time(last_time = checkpoint, start_time = ptm)
+}
