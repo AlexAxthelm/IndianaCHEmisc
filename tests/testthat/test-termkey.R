@@ -1,11 +1,4 @@
-context("term")
-
-## TODO: Rename context
-## TODO: Add more tests
-
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
+context("term key")
 
 test_that("Correctly Split TermKeys", {
 
@@ -114,14 +107,3 @@ test_that("Correctly Split TermKeys", {
        )
      )
   })
-
-test_that("Season Difference", {
-  expect_equal(count_seasons(20042, 20043), 1)
-  expect_equal(count_seasons(20042, 20044), 2)
-  expect_equal(count_seasons(20043, 20044), 1)
-  expect_equal(count_seasons(20044, 20051), 0)
-  expect_equal(count_seasons(20042, 20062), 6)
-  expect_equal(count_seasons(20154, 20161), 0)
-  expect_equal(count_seasons(20134, 20185), 15)
-  expect_equal(count_seasons(20131, 20185), 18)
-})
