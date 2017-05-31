@@ -11,5 +11,6 @@ LazyData: true
 Suggests: testthat,
     covr,
     readr
-Imports: dplyr
+Imports: dplyr,
+		methods
 RoxygenNote: 6.0.1

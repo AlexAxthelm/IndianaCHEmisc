@@ -9,10 +9,10 @@
 #' @param neg Boolean: return a negative number of seasons if termkey 1 is later than termkey2, if FALSE, provide an absolute difference
 #' @param ignore_summers Boolean: if TRUE, count fall and spring semesters only
 #'
-#' @return
+#' @return Integer number of seasons between term keys
 #' @export
 #'
-#' @examples
+#' @examples count_seasons(20062, 20185)
 count_seasons <- function(
   termkey1,
   termkey2,
