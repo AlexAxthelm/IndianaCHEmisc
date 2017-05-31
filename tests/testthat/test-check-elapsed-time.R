@@ -6,21 +6,21 @@ test_that("check_elapsed_time handles missing arguments", {
   # No arguments, so no comparisons
   expect_silent(check_elapsed_time())
   # Compares to the "last time" arguement. Note the use of regex
-  expect_message(check_elapsed_time(last_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
+  expect_output(check_elapsed_time(last_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
 
 
   # Compares to the "start time" arguement. Note the use of regex
-  expect_message(check_elapsed_time(start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
+  expect_output(check_elapsed_time(start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
 
   # No names on the arguement defaults to last_time
   # Compares to the "last time" arguement. Note the use of regex
-  expect_message(check_elapsed_time(current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
+  expect_output(check_elapsed_time(current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
 
   # give a second time
   new_time <- Sys.time()
   Sys.sleep(.01)
-  # Check that both messages return
-  expect_message(check_elapsed_time(last_time = new_time, start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check, [[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
+  # Check that both outputs return
+  expect_output(check_elapsed_time(last_time = new_time, start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check, [[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
 })
 
 test_that("Check_elapsed_time returns a POSIXct", {

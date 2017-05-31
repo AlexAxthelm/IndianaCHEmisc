@@ -46,13 +46,13 @@ check_elapsed_time <- function(last_time, start_time){
   }
 
   if (show_start & show_last){
-    message(paste(last_msg, start_msg, sep = ", "))
+    print(paste(last_msg, start_msg, sep = ", "))
   }
   if (show_last & !show_start){
-    message(last_msg)
+    print(last_msg)
   }
   if (!show_last & show_start){
-    message(start_msg)
+    print(start_msg)
   }
 
   return(Sys.time())
