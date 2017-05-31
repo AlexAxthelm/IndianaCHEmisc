@@ -1,5 +1,18 @@
-#` Create GPG encrypted RDS of R objects.
-#' This function does not accept vectorized inputs. It will only deal with whole objects
+#' Save an R object as an encrypted file
+#'
+#' @param x any R object
+#' @param recipient the GPG recipient (passes args to \code{-r})
+#' @param ... ...
+#' @param path Path to which file should be written
+#' @param overwrite If TRUE, will overwrite existing file with same name
+#' @param obj_name if not NULL, will use string as filename
+#'
+#' @return Path to encrypted file
+#' @export
+#'
+#' @examples path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
+#' mtc2 <- gpg_rds_decrypt(path)
+#' stopifnot(identical(mtc2, mtcars))
 gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, obj_name = NULL){
   if (is.null(obj_name)){
     x_name <- deparse(substitute(x))
@@ -29,6 +42,16 @@ gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, 
   return(file_encrypt)
 }
 
+#' Load encrypted data
+#'
+#' @param encrypted_file Path to an encrypted file made using this package
+#'
+#' @return Original object stored in file
+#' @export
+#'
+#' @examples path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
+#' mtc2 <- gpg_rds_decrypt(path)
+#' stopifnot(identical(mtc2, mtcars))
 gpg_rds_decrypt <- function(encrypted_file){
   file_temp <- tempfile(fileext = ".RDS")
   system(paste("gpg --output", file_temp, "--decrypt", encrypted_file))
