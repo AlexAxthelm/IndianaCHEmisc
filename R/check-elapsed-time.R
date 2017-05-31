@@ -22,7 +22,7 @@ check_elapsed_time <- function(last_time, start_time){
   show_last <- FALSE
 
   #Check if last_time exists
-  if (hasArg(last_time)){
+  if (methods::hasArg(last_time)){
     last_time
     if (!is.null(last_time)){
       if (!is.na(last_time)){
@@ -34,7 +34,7 @@ check_elapsed_time <- function(last_time, start_time){
   }
 
   #Check if start_time exists
-  if (hasArg(start_time)){
+  if (methods::hasArg(start_time)){
     start_time
     if (!is.null(start_time)){
       if (!is.na(start_time)){
