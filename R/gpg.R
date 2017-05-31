@@ -10,9 +10,12 @@
 #' @return Path to encrypted file
 #' @export
 #'
-#' @examples path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
+#' @examples
+#' \dontrun{ 
+#' path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
 #' mtc2 <- gpg_rds_decrypt(path)
 #' stopifnot(identical(mtc2, mtcars))
+#' }
 gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, obj_name = NULL){
   if (is.null(obj_name)){
     x_name <- deparse(substitute(x))
@@ -49,9 +52,12 @@ gpg_rds_encrypt <- function(x, recipient, ..., path = "data", overwrite = TRUE, 
 #' @return Original object stored in file
 #' @export
 #'
-#' @examples path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
+#' @examples
+#' \dontrun{ 
+#' path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
 #' mtc2 <- gpg_rds_decrypt(path)
 #' stopifnot(identical(mtc2, mtcars))
+#' }
 gpg_rds_decrypt <- function(encrypted_file){
   file_temp <- tempfile(fileext = ".RDS")
   system(paste("gpg --output", file_temp, "--decrypt", encrypted_file))

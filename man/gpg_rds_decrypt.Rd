@@ -16,7 +16,9 @@ Original object stored in file
 Load encrypted data
 }
 \examples{
+\dontrun{ 
 path <- gpg_rds_encrypt(mtcars, recipient = "AAxthelm@che.in.gov")
 mtc2 <- gpg_rds_decrypt(path)
 stopifnot(identical(mtc2, mtcars))
+}
 }
