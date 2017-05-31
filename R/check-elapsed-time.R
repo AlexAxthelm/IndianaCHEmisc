@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' ptm <- proc.time()
+#' ptm <- Sys.time()
 #' Sys.sleep(4)
 #' checkpoint <- check_elapsed_time(start_time = ptm)
 #' Sys.sleep(8)
