@@ -15,8 +15,14 @@ count_seasons(termkey1, termkey2, neg = TRUE, ignore_summers = FALSE)
 
 \item{ignore_summers}{Boolean: if TRUE, count fall and spring semesters only}
 }
+\value{
+Integer number of seasons between term keys
+}
 \description{
 Fall, spring, summer.
 If ignore_summers = TRUE, but one of the termkeys is a summer, it will make the summer term collapse into the previous spring. 
 This gives an accurate count of the number of fall and spring terms in between two termkeys.
+}
+\examples{
+count_seasons(20062, 20185)
 }

@@ -1,5 +1,18 @@
+#' Create a subset of data
+#' TODO: Expand this documentation
+#'
+#' @param frame_df foobar
+#' @param ... ...
+#' @param keycolumn foobar
+#' @param randomvec foobar
+#' @param sample_size foobar
+#'
+#' @return foobar
+#' @export
+#'
+#' @examples TRUE
 make_tiny_frame <- function(frame_df, ..., keycolumn = "CurrentCSN", randomvec = NULL, sample_size = .01){
-  
+
   if (sample_size < 1) {sample_size <- sample_size*length(unique(frame_df[ , keycolumn]))}
   if (is.null(randomvec)){
     randomvec <- sample(x = unique(frame_df[ , keycolumn]), size = sample_size)
@@ -12,6 +25,19 @@ make_tiny_frame <- function(frame_df, ..., keycolumn = "CurrentCSN", randomvec =
   return(return_frame)
 }
 
+#' Save an encrypted RDS
+#' TODO: Expand this Documentation
+#'
+#' @param frame_df foobar
+#' @param recipient foobar
+#' @param ... ...
+#' @param make_tiny_args foobar
+#' @param gpg_rds_encrypt_args foobar
+#'
+#' @return foobar
+#' @export
+#'
+#' @examples TRUE
 save_gpg_frame_and_tiny <- function(
   frame_df,
   recipient,
@@ -34,6 +60,17 @@ save_gpg_frame_and_tiny <- function(
   return(list(frame = big_path, tiny = tiny_path))
 }
 
+#' Load an encrypted RDS
+#' TODO: Expand this Documentation
+#'
+#' @param encrypted_file foobar
+#' @param use_tiny foobar
+#' @param failsafe foobar
+#'
+#' @return foobar
+#' @export
+#'
+#' @examples TRUE
 read_gpg_frame_and_tiny <- function(
   encrypted_file,
   use_tiny = TRUE,
