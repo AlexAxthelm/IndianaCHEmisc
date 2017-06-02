@@ -29,13 +29,15 @@ count_seasons <- function(
     neg_factor_num <- 0
   }
 
-  neg_factor <- 1 + (as.integer(termkey1 > termkey2) * neg_factor_num)
+  going_backwards <- (termkey1 > termkey2)
+
+  neg_factor <- 1 + (as.integer(going_backwards) * neg_factor_num)
   foo <- dplyr::case_when(
-    termkey1 > termkey2 ~ termkey2,
+    going_backwards ~ termkey2,
     TRUE ~ termkey1
     )
   bar <- dplyr::case_when(
-    termkey1 > termkey2 ~ termkey1,
+    going_backwards ~ termkey1,
     TRUE ~ termkey2
     )
   termkey1 <- foo
@@ -51,26 +53,27 @@ count_seasons <- function(
   # in between any two terms. If counting backwards, however, we need to
   # collapse back to the following fall.
   if (ignore_summers){
-    termlist1$term_season <- dplyr:case_when(
-      termlist1$term_season == "Summer" & termkey1 > termkey2 ~ "Fall",
+    termlist1$academic_year <- dplyr::case_when(
+      termlist1$term_season == "Summer" & going_backwards ~
+        termlist1$academic_year + 1L,
+      TRUE ~ termlist1$academic_year
+      )
+    termlist1$term_season <- dplyr::case_when(
+      termlist1$term_season == "Summer" & going_backwards ~ "Fall",
       termlist1$term_season == "Summer" ~ "Spring",
       TRUE ~ termlist1$term_season
       )
-    termlist1$academic_year <- dplyr:case_when(
-      termlist1$term_season == "Summer" & termkey1 > termkey2 ~ termlist1$academic_year + 1,
-      TRUE ~ termlist1$academic_year
-      )
 
-    termlist2$term_season <- dplyr:case_when(
-      termlist2$term_season == "Summer" & termkey1 > termkey2 ~ "Fall",
+    termlist2$academic_year <- dplyr::case_when(
+      termlist2$term_season == "Summer" & going_backwards ~
+        termlist2$academic_year + 1L,
+      TRUE ~ termlist2$academic_year
+      )
+    termlist2$term_season <- dplyr::case_when(
+      termlist2$term_season == "Summer" & going_backwards ~ "Fall",
       termlist2$term_season == "Summer" ~ "Spring",
       TRUE ~ termlist2$term_season
       )
-    termlist2$academic_year <- dplyr:case_when(
-      termlist2$term_season == "Summer" & termkey1 > termkey2 ~ termlist2$academic_year + 1,
-      TRUE ~ termlist2$academic_year
-      )
-
   }
 
   mod_seasons <- dplyr::case_when(
