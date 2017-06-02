@@ -72,7 +72,7 @@ split_termkey <- function(termkey){
   key_year <- as.integer(substr(termkey, 1, 4))
   termcode <- as.integer(substr(termkey, 5, 5))
 
-  academic_year <- ifelse(termcode == 1, key_year - 1, key_year)
+  academic_year <- ifelse(termcode == 1, key_year - 1L, key_year)
   academic_year <- ifelse(is.na(termkey), NA_integer_, academic_year)
 
   term_name <- dplyr::case_when(
@@ -109,7 +109,11 @@ split_termkey <- function(termkey){
   # across fiscal years. The 20161 term is the last of the AB distinctions
   fiscal_year <- ifelse(is.na(termkey), NA_integer_, fiscal_year)
 
-  seasonkey <- as.integer(paste0(academic_year, term_season_number))
+  if (is.na(academic_year) || is.na(term_season_number)){
+    seasonkey <- NA_integer_
+  } else {
+    seasonkey <- as.integer(paste0(academic_year, term_season_number))
+  }
 
   return_list <- list(
     academic_year = academic_year,
