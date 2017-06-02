@@ -20,7 +20,7 @@
 #' validate_termkey(20183) # Valid, Spring 2018
 #' validate_termkey(20184) # Not Valid
 #' validate_termkey(20185) # Valid, Trailing Summer 2018
-validate_termkey <- function(termkey){
+validate_termkey <- function(termkey, allow_seasonkeys = FALSE){
 
   # get rid of any underscores put into the term key by pasting or `unite`ing.
   termkey <- gsub(pattern = "_", replacement = "", x = termkey)
@@ -42,7 +42,7 @@ validate_termkey <- function(termkey){
     is_int_year &
     is_int_term &
     is_good_summer_new &
-    is_good_summer_old &
+    (allow_seasonkeys || is_good_summer_old) &
     is_good_summer_2016 &
     key_term_valid
 
@@ -61,13 +61,14 @@ validate_termkey <- function(termkey){
 #' termcode,
 #' term_name,
 #' fiscal_year
+#' seasonkey
 #' @export
 #'
 #' @examples
 #' split_termkey(20083)
 #' split_termkey("20291")
 split_termkey <- function(termkey){
-  termkey <- validate_termkey(termkey = termkey)
+  termkey <- validate_termkey(termkey = termkey, allow_seasonkeys = TRUE)
   key_year <- as.integer(substr(termkey, 1, 4))
   termcode <- as.integer(substr(termkey, 5, 5))
 
@@ -108,13 +109,16 @@ split_termkey <- function(termkey){
   # across fiscal years. The 20161 term is the last of the AB distinctions
   fiscal_year <- ifelse(is.na(termkey), NA_integer_, fiscal_year)
 
+  seasonkey <- as.integer(paste0(academic_year, term_season_number))
+
   return_list <- list(
     academic_year = academic_year,
     term_season = term_season,
     term_season_number = term_season_number,
     termcode = termcode,
     term_name = term_name,
-    fiscal_year = fiscal_year
+    fiscal_year = fiscal_year,
+    seasonkey = seasonkey
   )
 
   return(return_list)
