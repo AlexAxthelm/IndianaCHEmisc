@@ -8,11 +8,13 @@ init:
         Import-Module '..\appveyor-tool.ps1'
 
 install:
+  cinst: gpg4win
   ps: Bootstrap
 
 # Adapt as necessary starting from here
 
 build_script:
+  - gpg --import .\inst\axthelm-pub-asc.gpg
   - travis-tool.sh install_deps
 
 test_script:

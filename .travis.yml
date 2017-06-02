@@ -16,6 +16,9 @@ addons:
     - unixodbc-dev
     - tdsodbc
     - libsqliteodbc
+
+before_script:
+  gpg --import ./inst/axthelm-pub-asc.gpg
  
 after_success:
   - Rscript -e 'covr::codecov()'
