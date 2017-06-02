@@ -10,11 +10,11 @@ init:
 install:
   cinst: gpg4win
   ps: Bootstrap
+  - gpg --import .\inst\axthelm-pub-asc.gpg
 
 # Adapt as necessary starting from here
 
 build_script:
-  - gpg --import .\inst\axthelm-pub-asc.gpg
   - travis-tool.sh install_deps
 
 test_script:
