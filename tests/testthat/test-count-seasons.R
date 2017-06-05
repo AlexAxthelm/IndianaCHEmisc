@@ -506,4 +506,130 @@ test_that("Going Backwards, Summer, neg, nosum", {
   expect_equal(count_seasons(20175, 20173, ignore_summers = TRUE, neg = FALSE), 1)
   expect_equal(count_seasons(20175, 20175, ignore_summers = TRUE, neg = FALSE), 0)
 })
-# nolint end  # Back to safety
+
+test_that("vectorized function works", {
+  expect_equal(count_seasons(20023,
+      c(
+        20023,
+        20024,
+        20031,
+        20032,
+        20033,
+        20034,
+        20042,
+        20043,
+        20044,
+        20052,
+        20053,
+        20054,
+        20062
+        ), ignore_summers = FALSE,
+      neg = FALSE
+      ),
+    c(
+      0,
+      1,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+      ))
+  expect_equal(count_seasons(20024,
+      c(
+        20024,
+        20031,
+        20032,
+        20033,
+        20034,
+        20042,
+        20043,
+        20044,
+        20052,
+        20053,
+        20054,
+        20062
+        ), ignore_summers = TRUE,
+      neg = FALSE
+      ),
+    c(
+        0,
+        0,
+        1,
+        2,
+        2,
+        3,
+        4,
+        4,
+        5,
+        6,
+        6,
+        7
+      ))
+  expect_equal(count_seasons(20183,
+      c(
+          20152,
+          20153,
+          20154,
+          20161,
+          20162,
+          20163,
+          20165,
+          20172,
+          20173,
+          20175,
+          20182,
+          20183
+        ), ignore_summers = FALSE,
+      neg = TRUE
+      ),
+    c(
+        -10,
+        -9,
+        -8,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0
+      ))
+  expect_equal(count_seasons(20175,
+      c(
+          20152,
+          20153,
+          20154,
+          20161,
+          20162,
+          20163,
+          20165,
+          20172,
+          20173,
+          20175
+        ), ignore_summers = TRUE,
+      neg = FALSE
+      ),
+    c(
+        6,
+        5,
+        4,
+        4,
+        4,
+        3,
+        2,
+        2,
+        1,
+        0
+      ))
+})
+
+     # nolint end  # Back to safety
