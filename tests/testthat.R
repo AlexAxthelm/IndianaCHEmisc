@@ -3,7 +3,7 @@
 # revert this when that issue in R is fixed.
 Sys.setenv("R_TESTS" = "")
 
-library(testthat)
-library(IndianaCHEmisc)
+library("testthat")
+library("IndianaCHEmisc")
 
 test_check("IndianaCHEmisc")

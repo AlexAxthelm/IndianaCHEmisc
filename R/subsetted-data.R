@@ -11,16 +11,23 @@
 #' @export
 #'
 #' @examples TRUE
-make_tiny_frame <- function(frame_df, ..., keycolumn = "CurrentCSN", randomvec = NULL, sample_size = .01){
-
-  if (sample_size < 1) {sample_size <- sample_size*length(unique(frame_df[ , keycolumn]))}
+make_tiny_frame <- function(
+  frame_df,
+  ...,
+  keycolumn = "CurrentCSN",
+  randomvec = NULL,
+  sample_size = .01
+  ){
+  if (sample_size < 1) {
+    sample_size <- sample_size * length(unique(frame_df[, keycolumn]))
+  }
   if (is.null(randomvec)){
-    randomvec <- sample(x = unique(frame_df[ , keycolumn]), size = sample_size)
+    randomvec <- sample(x = unique(frame_df[, keycolumn]), size = sample_size)
   }
   # I can probably improve this with dplyr.
   #TODO: implement a dplyr solution, but make it optional.
 
-	#This is broken
+  #This is broken
   return_frame <- frame_df[(frame_df[, keycolumn] %in% randomvec), ]
   return(return_frame)
 }
@@ -45,7 +52,6 @@ save_gpg_frame_and_tiny <- function(
   make_tiny_args = list(...),
   gpg_rds_encrypt_args = list(...)
 ){
-  three_dots <- list(...)
   make_tiny_args <- make_tiny_args
   gpg_rds_encrypt_args <- gpg_rds_encrypt_args
 
@@ -53,10 +59,27 @@ save_gpg_frame_and_tiny <- function(
   tiny_frame_name <- paste0(frame_name, "_tiny")
 
   frame_df
-  tiny_frame <- do.call(what = make_tiny_frame, args = c(list(frame_df = frame_df), as.list(make_tiny_args)))
+  tiny_frame <- do.call(
+    what = make_tiny_frame,
+    args = c(list(frame_df = frame_df), as.list(make_tiny_args))
+    )
 
-  big_path <- do.call(what = gpg_rds_encrypt, args = c(list(x = frame_df, recipient = recipient), as.list(gpg_rds_encrypt_args), obj_name = frame_name))
-  tiny_path <- do.call(what = gpg_rds_encrypt, args = c(list(x = tiny_frame, recipient = recipient), as.list(gpg_rds_encrypt_args), obj_name = tiny_frame_name))
+  big_path <- do.call(
+    what = gpg_rds_encrypt,
+    args = c(
+      list(x = frame_df, recipient = recipient),
+      as.list(gpg_rds_encrypt_args),
+      obj_name = frame_name
+      )
+    )
+  tiny_path <- do.call(
+    what = gpg_rds_encrypt,
+    args = c(
+      list(x = tiny_frame, recipient = recipient),
+      as.list(gpg_rds_encrypt_args),
+      obj_name = tiny_frame_name
+      )
+    )
   return(list(frame = big_path, tiny = tiny_path))
 }
 
@@ -77,19 +100,33 @@ read_gpg_frame_and_tiny <- function(
   failsafe = TRUE
 ){
   if (grepl(x = encrypted_file, pattern = "_tiny.RDS.gpg")){
-    tiny_filename = encrypted_file
-    big_filename <- gsub(x = encrypted_file, pattern = "_tiny.RDS.gpg", replacement = ".RDS.gpg")
+    tiny_filename <- encrypted_file
+    big_filename <- gsub(
+      x = encrypted_file,
+      pattern = "_tiny.RDS.gpg",
+      replacement = ".RDS.gpg"
+      )
   } else {
     big_filename <- encrypted_file
-    tiny_filename <- gsub(x = big_filename, pattern = ".RDS.gpg", replacement = "_tiny.RDS.gpg")
+    tiny_filename <- gsub(
+      x = big_filename,
+      pattern = ".RDS.gpg",
+      replacement = "_tiny.RDS.gpg"
+      )
   }
 
-  filename_valid <- identical(big_filename, encrypted_file) | identical(tiny_filename, encrypted_file)
-  file_to_read <- if (use_tiny) {tiny_filename} else {big_filename}
+  filename_valid <- identical(big_filename, encrypted_file) |
+    identical(tiny_filename, encrypted_file)
+
+  file_to_read <- if (use_tiny) {
+    tiny_filename
+  } else {
+    big_filename
+  }
 
   if (!file.exists(big_filename)){
     warning(big_filename, " does not exist.")
-    if(failsafe & !use_tiny){
+    if (failsafe & !use_tiny){
       warning("Attempting to use ", tiny_filename, " instead")
       file_to_read <- tiny_filename
     }
@@ -97,7 +134,7 @@ read_gpg_frame_and_tiny <- function(
 
   if (!file.exists(tiny_filename)){
     warning(tiny_filename, " does not exist.")
-    if(failsafe & use_tiny){
+    if (failsafe & use_tiny){
       warning("Attempting to use ", big_filename, " instead")
       file_to_read <- big_filename
     }
