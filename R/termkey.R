@@ -46,7 +46,7 @@ validate_termkey <- function(termkey, allow_seasonkeys = FALSE){
     is_good_summer_2016 &
     key_term_valid
 
-  ret_termkey <- ifelse(is_termkey, termkey, NA_integer_)
+  ret_termkey <- ifelse(is_termkey, as.integer(termkey), NA_integer_)
   return(ret_termkey)
 }
 
