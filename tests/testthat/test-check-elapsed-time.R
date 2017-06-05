@@ -6,21 +6,36 @@ test_that("check_elapsed_time handles missing arguments", {
   # No arguments, so no comparisons
   expect_silent(check_elapsed_time())
   # Compares to the "last time" arguement. Note the use of regex
-  expect_output(check_elapsed_time(last_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
+  expect_output(
+    check_elapsed_time(last_time = current_time),
+    "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check" #nolint That's just what my message is
+    )
 
 
   # Compares to the "start time" arguement. Note the use of regex
-  expect_output(check_elapsed_time(start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
+  expect_output(
+    check_elapsed_time(
+      start_time = current_time),
+      "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total" #nolint That's just what my message is
+    )
 
   # No names on the arguement defaults to last_time
   # Compares to the "last time" arguement. Note the use of regex
-  expect_output(check_elapsed_time(current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check")
+  expect_output(
+    check_elapsed_time(current_time),
+    "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check" #nolint That's just what my message is
+
+    )
 
   # give a second time
   new_time <- Sys.time()
   Sys.sleep(.01)
   # Check that both outputs return
-  expect_output(check_elapsed_time(last_time = new_time, start_time = current_time), "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check, [[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total")
+  expect_output(
+    check_elapsed_time(last_time = new_time, start_time = current_time),
+    "[[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) since last check, [[:digit:]]+[\\.]{0,1}[[:digit:]]{0,2} (secs|mins|hours|days) total" #nolint That's just what my message is
+
+    )
 })
 
 test_that("Check_elapsed_time returns a POSIXct", {
@@ -38,7 +53,10 @@ test_that("Check_elapsed_time returns a POSIXct", {
 
   new_time <- Sys.time()
   Sys.sleep(.01)
-  expect_is(check_elapsed_time(last_time = new_time, start_time = current_time), "POSIXct")
+  expect_is(
+    check_elapsed_time(last_time = new_time, start_time = current_time),
+    "POSIXct"
+    )
 })
 
 test_that("check_elapsed_time can handle NULLs", {
