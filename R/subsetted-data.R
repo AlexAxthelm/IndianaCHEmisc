@@ -1,35 +1,39 @@
 #' Create a subset of data
 #' TODO: Expand this documentation
 #'
-#' @param frame_df foobar
-#' @param ... ...
-#' @param keycolumn foobar
-#' @param randomvec foobar
-#' @param sample_size foobar
+#' @param frame_df a dataframe or similar (tbl)
+#' @param keycolumn character: name of column by which to sample. If missing, defaults to row names
+#' @param randomvec a vector a values in keycolumn to return
+#' @param sample_n number of samples to return, if randomvec is missing
 #'
-#' @return foobar
+#' @return a subsetted object of same type as frame_df
 #' @export
 #'
-#' @examples TRUE
+#' @examples make_tiny_frame(mtcars)
+#' make_tiny_frame(ChickWeight, keycolumn = "Chick")
 make_tiny_frame <- function(
   frame_df,
-  ...,
-  keycolumn = "CurrentCSN",
-  randomvec = NULL,
-  sample_size = .01
+  keycolumn,
+  randomvec,
+  sample_n = 5
   ){
-  if (sample_size < 1) {
-    sample_size <- sample_size * length(unique(frame_df[, keycolumn]))
+  if (missing(keycolumn)){
+    keycolumn_vec <- unlist(rownames(frame_df))
+  } else {
+    keycolumn_vec <- unlist(frame_df[keycolumn])
   }
-  if (is.null(randomvec)){
-    randomvec <- sample(x = unique(frame_df[, keycolumn]), size = sample_size)
-  }
-  # I can probably improve this with dplyr.
-  #TODO: implement a dplyr solution, but make it optional.
 
-  #This is broken
-  return_frame <- frame_df[(frame_df[, keycolumn] %in% randomvec), ]
-  return(return_frame)
+  if (missing(randomvec)){
+    randomvec <- sample(
+        x = unique(keycolumn_vec),
+        size = min(sample_n, length(unique(keycolumn_vec)))
+      )
+  }
+
+  rows_for_tiny <- which(keycolumn_vec %in% randomvec)
+
+  tiny_frame <- frame_df[rows_for_tiny, ]
+  return(tiny_frame)
 }
 
 #' Save an encrypted RDS
