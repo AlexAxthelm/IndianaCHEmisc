@@ -5,27 +5,25 @@
 \title{Create a subset of data
 TODO: Expand this documentation}
 \usage{
-make_tiny_frame(frame_df, ..., keycolumn = "CurrentCSN", randomvec = NULL,
-  sample_size = 0.01)
+make_tiny_frame(frame_df, keycolumn, randomvec, sample_n = 5)
 }
 \arguments{
-\item{frame_df}{foobar}
+\item{frame_df}{a dataframe or similar (tbl)}
 
-\item{...}{...}
+\item{keycolumn}{character: name of column by which to sample. If missing, defaults to row names}
 
-\item{keycolumn}{foobar}
+\item{randomvec}{a vector a values in keycolumn to return}
 
-\item{randomvec}{foobar}
-
-\item{sample_size}{foobar}
+\item{sample_n}{number of samples to return, if randomvec is missing}
 }
 \value{
-foobar
+a subsetted object of same type as frame_df
 }
 \description{
 Create a subset of data
 TODO: Expand this documentation
 }
 \examples{
-TRUE
+make_tiny_frame(mtcars)
+make_tiny_frame(ChickWeight, keycolumn = "Chick")
 }

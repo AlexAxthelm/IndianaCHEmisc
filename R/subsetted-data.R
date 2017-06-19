@@ -39,52 +39,48 @@ make_tiny_frame <- function(
 #' Save an encrypted RDS
 #' TODO: Expand this Documentation
 #'
-#' @param frame_df foobar
-#' @param recipient foobar
-#' @param ... ...
-#' @param make_tiny_args foobar
-#' @param gpg_rds_encrypt_args foobar
+#' @param frame_df data.frame, or similar
+#' @param keycolumn column of frame_df to select from
+#' @param randomvec vector of values that are in keycolumn
 #'
 #' @return foobar
 #' @export
 #'
 #' @examples TRUE
-save_gpg_frame_and_tiny <- function(
+save_frame_and_tiny <- function(
   frame_df,
-  recipient,
-  ...,
-  make_tiny_args = list(...),
-  gpg_rds_encrypt_args = list(...)
+  keycolumn,
+  randomvec,
+  path = "data",
+  make_tiny_args = list()
 ){
   make_tiny_args <- make_tiny_args
-  gpg_rds_encrypt_args <- gpg_rds_encrypt_args
 
   frame_name <- deparse(substitute(frame_df))
   tiny_frame_name <- paste0(frame_name, "_tiny")
 
-  frame_df
+  # frame_df
+  mtf_args <- list(frame_df = frame_df)
+  if (!missing(keycolumn)){
+    mtf_args <- c(mtf_args, keycolumn = keycolumn)
+  }
+  if (!missing(randomvec)){
+    mtf_args <- c(mtf_args, randomvec = randomvec)
+  }
+  mtf_args <- c(mtf_args, as.list(make_tiny_args))
+
   tiny_frame <- do.call(
     what = make_tiny_frame,
-    args = c(list(frame_df = frame_df), as.list(make_tiny_args))
+    args = mtf_args
     )
 
-  big_path <- do.call(
-    what = gpg_rds_encrypt,
-    args = c(
-      list(x = frame_df, recipient = recipient),
-      as.list(gpg_rds_encrypt_args),
-      obj_name = frame_name
-      )
-    )
-  tiny_path <- do.call(
-    what = gpg_rds_encrypt,
-    args = c(
-      list(x = tiny_frame, recipient = recipient),
-      as.list(gpg_rds_encrypt_args),
-      obj_name = tiny_frame_name
-      )
-    )
-  return(list(frame = big_path, tiny = tiny_path))
+  big_path <- file.path(path, paste0(frame_name, ".RDS.gpg"))
+  tiny_path <- file.path(path, paste0(frame_name, ".RDS.gpg"))
+
+  saveRDS(frame_name, big_path)
+  saveRDS(tiny_frame_name, tiny_path)
+
+  return(invisible(list(frame = big_path, tiny = tiny_path)))
 }
 
 #' Load an encrypted RDS
@@ -98,20 +94,20 @@ save_gpg_frame_and_tiny <- function(
 #' @export
 #'
 #' @examples TRUE
-read_gpg_frame_and_tiny <- function(
-  encrypted_file,
+read_frame_and_tiny <- function(
+  file,
   use_tiny = TRUE,
   failsafe = TRUE
 ){
-  if (grepl(x = encrypted_file, pattern = "_tiny.RDS.gpg")){
-    tiny_filename <- encrypted_file
+  if (grepl(x = file, pattern = "_tiny.RDS.gpg")){
+    tiny_filename <- file
     big_filename <- gsub(
-      x = encrypted_file,
+      x = file,
       pattern = "_tiny.RDS.gpg",
       replacement = ".RDS.gpg"
       )
   } else {
-    big_filename <- encrypted_file
+    big_filename <- file
     tiny_filename <- gsub(
       x = big_filename,
       pattern = ".RDS.gpg",
@@ -119,8 +115,8 @@ read_gpg_frame_and_tiny <- function(
       )
   }
 
-  filename_valid <- identical(big_filename, encrypted_file) |
-    identical(tiny_filename, encrypted_file)
+  filename_valid <- identical(big_filename, file) |
+    identical(tiny_filename, file)
 
   file_to_read <- if (use_tiny) {
     tiny_filename
@@ -149,6 +145,6 @@ read_gpg_frame_and_tiny <- function(
     file.exists(file_to_read)
   )
 
-  gpg_rds_decrypt(file_to_read)
+  readRDS(file_to_read)
 
 }
