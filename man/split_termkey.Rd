@@ -17,6 +17,7 @@ term_season_number,
 termcode,
 term_name,
 fiscal_year
+seasonkey
 }
 \description{
 Split Termkey into important information

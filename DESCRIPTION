@@ -12,5 +12,6 @@ Suggests: testthat,
     covr,
     readr
 Imports: dplyr,
-		methods
+		methods,
+    secret
 RoxygenNote: 6.0.1

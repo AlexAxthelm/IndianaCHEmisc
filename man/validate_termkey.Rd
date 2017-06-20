@@ -4,7 +4,7 @@
 \alias{validate_termkey}
 \title{Determine if a termkey is valid}
 \usage{
-validate_termkey(termkey)
+validate_termkey(termkey, allow_seasonkeys = FALSE)
 }
 \arguments{
 \item{termkey}{TermKey for record pulled from SQL database}

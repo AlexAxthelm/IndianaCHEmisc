@@ -2,10 +2,7 @@
 
 export(check_elapsed_time)
 export(count_seasons)
-export(gpg_rds_decrypt)
-export(gpg_rds_encrypt)
 export(make_tiny_frame)
-export(read_gpg_frame_and_tiny)
-export(save_gpg_frame_and_tiny)
 export(split_termkey)
 export(validate_termkey)
+export(vault_frame_and_tiny)
