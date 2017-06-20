@@ -8,3 +8,6 @@ build: document
 
 test: build
 	R -e "devtools::test()"
+	
+install: test
+	R -e "devtools::install()"
