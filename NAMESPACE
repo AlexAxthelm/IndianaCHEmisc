@@ -2,7 +2,7 @@
 
 export(check_elapsed_time)
 export(count_seasons)
-export(make_tiny_frame)
+export(read_SQL_query_from_file)
 export(split_termkey)
 export(validate_termkey)
-export(vault_frame_and_tiny)
+export(vault_save)
