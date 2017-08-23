@@ -23,6 +23,13 @@ count_seasons <- function(
   # termkey1 is later than termkey2 (negative time)
   # neg = FALSE will simply give the absolute difference
   #order the termkeys
+  stopifnot(length(termkey1) == length(termkey2))
+
+  na_index_1 <- is.na(termkey1)
+  na_index_2 <- is.na(termkey2)
+  termkey1[na_index_1] <- 19902
+  termkey2[na_index_2] <- 19912
+
   if (neg) {
     neg_factor_num <- -2
   } else {
@@ -43,8 +50,8 @@ count_seasons <- function(
   termkey1 <- foo
   termkey2 <- bar
 
-  termlist1 <- split_termkey(termkey1)
-  termlist2 <- split_termkey(termkey2)
+  termlist1 <- suppressWarnings(split_termkey(termkey1))
+  termlist2 <- suppressWarnings(split_termkey(termkey2))
 
 
   # Upon wokring things out by hand, it appears that when ignoring summers, if
@@ -96,6 +103,8 @@ count_seasons <- function(
     num_seasons <- (diff_years * 3) + mod_seasons
   }
 
+  num_seasons[na_index_1] <- NA_integer_
+  num_seasons[na_index_2] <- NA_integer_
 
   return(num_seasons * neg_factor)
 }

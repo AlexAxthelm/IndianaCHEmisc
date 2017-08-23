@@ -2,7 +2,9 @@
 
 export(check_elapsed_time)
 export(count_seasons)
+export(find_sample)
 export(read_SQL_query_from_file)
+export(sample_name)
 export(split_termkey)
 export(validate_termkey)
 export(vault_save)
