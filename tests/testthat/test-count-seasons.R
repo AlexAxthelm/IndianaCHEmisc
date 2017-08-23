@@ -508,7 +508,7 @@ test_that("Going Backwards, Summer, neg, nosum", {
 })
 
 test_that("vectorized function works", {
-  expect_equal(count_seasons(20023,
+  expect_equal(count_seasons(rep(20023, 13),
       c(
         20023,
         20024,
@@ -541,7 +541,7 @@ test_that("vectorized function works", {
       10,
       11
       ))
-  expect_equal(count_seasons(20024,
+  expect_equal(count_seasons(rep(20024, 12),
       c(
         20024,
         20031,
@@ -572,7 +572,7 @@ test_that("vectorized function works", {
         6,
         7
       ))
-  expect_equal(count_seasons(20183,
+  expect_equal(count_seasons(rep(20183, 12),
       c(
           20152,
           20153,
@@ -603,7 +603,7 @@ test_that("vectorized function works", {
         -1,
         0
       ))
-  expect_equal(count_seasons(20175,
+  expect_equal(count_seasons(rep(20175, 10),
       c(
           20152,
           20153,
